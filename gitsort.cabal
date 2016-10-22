@@ -29,6 +29,7 @@ library
                      , wai
                      , warp
                      , mtl
+                     , bytestring
 
   default-language:    Haskell2010
 

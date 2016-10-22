@@ -10,6 +10,7 @@ module Lib
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Trans.Except (ExceptT, runExceptT)
 import Data.Aeson
+import qualified Data.ByteString.Lazy.Char8 as B
 import Data.List (sortBy)
 import Data.Proxy
 import qualified Data.Text as T
@@ -29,7 +30,7 @@ data Repo = Repo
   , full_name        :: T.Text
   , size             :: Int
   , description      :: Maybe T.Text
-  , language         :: T.Text
+  , language         :: Maybe T.Text
   , created_at       :: T.Text
   , clone_url        :: T.Text
   , stargazers_count :: Int
@@ -85,7 +86,7 @@ server user = do
   case result of
     Right repos -> return $ (take 5) $ sortRepos repos
     Left err    -> S.throwError 
-                 $ err404 { errBody = "User not found, more info: https://developer.github.com/v3"}
+                 $ err404 { errBody = B.pack $ "GitHub Error: " ++ show err}
 
 app :: Application
 app = serve myAPI server
