@@ -20,6 +20,7 @@ library
                      , basic-prelude
                      , servant < 0.9
                      , aeson
+                     , aeson-pretty
                      , text
                      , http-client
                      , http-client-tls
@@ -30,6 +31,7 @@ library
                      , warp
                      , mtl
                      , bytestring
+                     , http-media
 
   default-language:    Haskell2010
 
