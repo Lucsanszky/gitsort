@@ -39,6 +39,7 @@ data Repo = Repo
   , created_at       :: Text
   , clone_url        :: Text
   , stargazers_count :: Int
+  , private          :: Bool
   } deriving (Show, Generic)
 
 data PrettyJSON
@@ -103,7 +104,7 @@ server user = do
   case result of
     Right repos -> return $ (take 5) $ sortRepos repos
     Left err    -> S.throwError 
-                 $ err404 { errBody = pack $ "GitHub Error: " ++ show err}
+                 $ err404 {errBody = pack $ "GitHub Error: " ++ show err}
 
 app :: Application
 app = serve myAPI server
